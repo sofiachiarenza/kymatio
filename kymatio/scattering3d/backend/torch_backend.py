@@ -124,7 +124,7 @@ class TorchBackend3D(TorchBackend):
         return torch.sqrt(module)
 
     @staticmethod
-    def compute_integrals(input_array, integral_powers):
+    def compute_integrals(input_array, integral_powers, mask): #modificato qui! Da mettere mask in input
         """Computes integrals.
 
             Computes integrals of the input_array to the given powers.
@@ -146,8 +146,9 @@ class TorchBackend3D(TorchBackend):
         integrals = torch.zeros((input_array.shape[0], len(integral_powers)),
                 device=input_array.device)
         for i_q, q in enumerate(integral_powers):
-            integrals[:, i_q] = (input_array ** q).view(
-                input_array.shape[0], -1).sum(1)
+            #integrals[:, i_q] = (input_array ** q).view(
+                #input_array.shape[0], -1).sum(1)
+            integrals[:, i_q] = (input_array[mask] ** q).view(input_array.shape[0], -1).sum(1)
         return integrals
 
 
