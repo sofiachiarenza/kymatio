@@ -147,9 +147,9 @@ class TorchBackend3D(TorchBackend):
                 device=input_array.device)
         mask = mask.reshape(input_array.shape)
         for i_q, q in enumerate(integral_powers):
-            #integrals[:, i_q] = (input_array ** q).view(
-                #input_array.shape[0], -1).sum(1)
-            integrals[:, i_q] = (input_array[mask] ** q).flatten().sum()
+                integrals[:, i_q] = (input_array[mask] ** q).view(
+                input_array.shape[0], -1).sum(1)
+            
         return integrals
 
 
