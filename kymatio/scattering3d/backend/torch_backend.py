@@ -145,7 +145,6 @@ class TorchBackend3D(TorchBackend):
         """
         integrals = torch.zeros((input_array.shape[0], len(integral_powers)),
                 device=input_array.device)
-        mask = mask.reshape(input_array.shape)
         print("Mask shape from Kymatio: " , mask.shape)
         for i_q, q in enumerate(integral_powers):
                 integrals[:, i_q] = (input_array[mask] ** q).view(
